@@ -1,0 +1,198 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brayan-bg: #0b0602;
+  --brayan-edge: #1c0e04;
+  --brayan-cream: #f7ead2;
+  --brayan-mist: #d8c8aa;
+  --brayan-copper: #c8893b;
+  --brayan-clay: #a9562f;
+  --brayan-sage: #778761;
+  --brayan-blue: #7f9aa5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--brayan-bg);
+  color: var(--brayan-cream);
+  font-family: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: 0;
+  scroll-behavior: auto;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--brayan-bg);
+  color: var(--brayan-cream);
+}
+
+body::selection {
+  background: var(--brayan-copper);
+  color: var(--brayan-bg);
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+canvas {
+  display: block;
+}
+
+.grain::before {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  content: "";
+  opacity: 0.12;
+  mix-blend-mode: soft-light;
+  background-image:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.08), transparent 42%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.025) 0,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+}
+
+.clip-menu {
+  clip-path: inset(0 0 0 0 round 0);
+}
+
+.menu-link {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+  line-height: 0.92;
+}
+
+.menu-link span {
+  display: block;
+  transition:
+    transform 650ms cubic-bezier(0.19, 1, 0.22, 1),
+    color 450ms ease;
+}
+
+.menu-link::after {
+  position: absolute;
+  left: 0;
+  bottom: 0.06em;
+  height: 0.08em;
+  width: 100%;
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--brayan-copper);
+  transition: transform 650ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.menu-link:hover span {
+  transform: translateY(-0.06em);
+  color: var(--brayan-copper);
+}
+
+.menu-link:hover::after {
+  transform: scaleX(1);
+}
+
+.preloader-grid {
+  background-image:
+    linear-gradient(rgba(247, 234, 210, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(247, 234, 210, 0.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+.cta-motion-field {
+  background:
+    linear-gradient(90deg, rgba(119, 135, 97, 0.16) 1px, transparent 1px),
+    linear-gradient(rgba(200, 137, 59, 0.16) 1px, transparent 1px),
+    linear-gradient(145deg, #120802 0%, #2b1608 46%, #0b0602 100%);
+  background-size: 78px 78px, 78px 78px, 100% 100%;
+  animation: field-drift 13s linear infinite;
+}
+
+.cta-motion-field::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    conic-gradient(
+      from 120deg at 50% 50%,
+      rgba(247, 234, 210, 0),
+      rgba(247, 234, 210, 0.16),
+      rgba(200, 137, 59, 0.18),
+      rgba(247, 234, 210, 0)
+    );
+  opacity: 0.42;
+  animation: slow-spin 18s linear infinite;
+}
+
+.frame-mask {
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 84%, transparent 100%);
+}
+
+.sequence-vignette {
+  background:
+    radial-gradient(circle at 50% 55%, rgba(11, 6, 2, 0) 24%, rgba(11, 6, 2, 0.68) 100%),
+    linear-gradient(180deg, rgba(11, 6, 2, 0.22), rgba(11, 6, 2, 0));
+}
+
+.sequence-specular {
+  background:
+    radial-gradient(circle at 14% 22%, rgba(247, 234, 210, 0.17), transparent 34%),
+    radial-gradient(circle at 82% 74%, rgba(200, 137, 59, 0.14), transparent 38%);
+  mix-blend-mode: screen;
+  animation: light-sweep 7.5s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes field-drift {
+  from {
+    background-position: 0 0, 0 0, 0 0;
+  }
+
+  to {
+    background-position: 78px 78px, -78px 78px, 0 0;
+  }
+}
+
+@keyframes slow-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes light-sweep {
+  from {
+    transform: translate3d(-1.2%, -1.2%, 0) scale(1);
+    opacity: 0.55;
+  }
+
+  to {
+    transform: translate3d(1.2%, 1.2%, 0) scale(1.04);
+    opacity: 0.92;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
